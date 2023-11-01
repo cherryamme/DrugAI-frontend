@@ -1,6 +1,7 @@
 // pages/chat.js
 import {
-	baseUrl,
+    baseUrl,
+    apiVersion,
 	OPEN_API_KEY
 } from '~/config/index';
 let requestTask = null
@@ -96,18 +97,20 @@ Page({
 				role: 'system',
 				content: currentPrompt.content
 			})
-		}
+        }
+        console.log(messages)
 		requestTask = wx.request({
-			url: `${baseUrl}/v1/chat/completions`,
+			// url: `${baseUrl}/GPT4/chat/completions?api-version=${apiVersion}`,
+			url: `https://bgioaistudio.openai.azure.com/openai/deployments/GPT4/chat/completions?api-version=2023-03-15-preview`,
 			data: {
-				model: "gpt-3.5-turbo",
 				messages
 			},
 			method: 'POST',
 			responseType: 'text',
 			header: {
 				'content-type': 'application/json',
-				Authorization: `Bearer ${OPEN_API_KEY}`,
+				// 'api-key': `${OPEN_API_KEY}`,
+				'api-key': '',
 			},
 			success: async (res) => {
 				const result = res.data?.choices[0].message.content || "";
@@ -143,7 +146,6 @@ Page({
 				if (!baseUrl) {
 					console.error('尚未配置有效的 baseUrl', baseUrl)
 				}
-
 				wx.showToast({
 					icon: 'none',
 					title: `服务请求错误`,
@@ -155,7 +157,11 @@ Page({
 			}
 		});
 
-	},
+    },
+    websocketWitchMessage() {
+        
+    },
+
 	show_text(key = 0, content_key, finished_key, value) {
 		if (key >= value.length) {
 			this.setData({

@@ -2,7 +2,7 @@
 <view class="settings">
 	<view class="settings__header">
 		<image mode="widthFix" class="settings__header--logo" src="../../assets/images/logo.png" alt="LOGO" />
-		<text class="settings__header--title">ChatGPT Miniprogram</text>
+		<text class="settings__header--title">ChatBGI</text>
 	</view>
 	<t-cell-group theme="card" bindtap="handleCellGroupClick">
 		<t-cell title="我要吐槽" leftIcon="tips" data-cell="feedback" hover arrow />
@@ -14,6 +14,6 @@
 	</t-cell-group>
 	<view class="settings__footer">
 		<text>v2.1.2</text>
-		<text>联系我：hey@leonfong.me</text>
+		<text>联系我：jesse</text>
 	</view>
 </view>

@@ -17,7 +17,7 @@ Page({
 				break;
 			case 'github':
 				wx.setClipboardData({
-					data: 'https://github.com/leon-fong/chatgpt-miniprogram',
+					data: 'https://github.com/cherryamme/',
 					success() {
 						wx.showToast({
 							title: '已复制',

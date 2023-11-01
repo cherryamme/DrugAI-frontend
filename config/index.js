@@ -23,6 +23,8 @@ export const appId = config.appId;
  * 根域名
  */
 export const baseUrl = config.baseUrl;
+export const apiVersion = config.apiVersion;
+
 /**
  * 分享图片
  */
@@ -33,6 +35,7 @@ export default {
   log,
   version,
   appId,
+  apiVersion,
 	baseUrl,
 	OPEN_API_KEY
 };
