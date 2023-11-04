@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view class="chat">
+    <scroll-view scroll-y="{{true}}" style="height:calc(100% - 126rpx)" 	show-scrollbar="false" scroll-with-animation="{{true}}" scroll-into-view="item-{{currentItem}}">
+        <view wx:for="{{messageList}}" wx:key="id" id="item-{{item.id}}">
+            <message-item data-index="{{index}}" role="{{item.role}}" content="{{item.content}}" finished="{{item.finished}}" />
+        </view>
+        <message-item role="assistant" id="item-loading" wx:if="{{thinking}}">
+			<div class="bubble">
+				<div class="bubble__circle"></div>
+				<div class="bubble__circle"></div>
+				<div class="bubble__circle"></div>
+            </div>
+        </message-item>
+        <view id="item-bottom" style="height: 1;width :100%"></view>
+    </scroll-view>
+
+
+
+    <view class="footer" style="bottom: {{fixedTop}}px">
+        <view class="footer_content">
+            <textarea class="user-input" model:value="{{inputValue}}" adjust-position="{{true}}" disableDefaultPadding="{{true}}" show-confirm-bar="{{false}}" auto-height="true" type="text" placeholder="发送消息" disabled="{{loading || thinking}}" bind:enter="handleSendClick" />
+                <image class="footer_clear_btn" src="/static/image/clear.png" bind:tap="clearMessage" />
+            <button class="footer_enter_btn" size="mini" disabled="{{loading || thinking}}" type="primary" bind:tap="handleSendClick">发送</button>
+        </view>
+    </view>
+</view>

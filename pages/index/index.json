@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+      "message-item": "../../components/message-item"
+    },
+    "navigationBarTitleText": "🧐用药咨询"
+}
