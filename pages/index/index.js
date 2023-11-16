@@ -9,38 +9,47 @@ Page({
         userName: '',
         inputValue: '',
         fixedTop: 15,
-        contentHeight: 188,
+        inputBoxPos: 188,
         thinking: false,
         loading: false,
         currentItem: 'bottom',
         messageList: [{
             id: 1,
             role: 'assistant',
-            content: "您好，我是 chatBGI 机器人，请问您想了解什么？"
+            content: "👨‍⚕️  您好，我是 chatBGI 机器人，请问您想咨询什么用药信息？"
         }],
     },
     onLoad() {
-        // var username = wx.getStorageSync('username') || '';
-        // if (!username) {
-        //     wx.showModal({
-        //         editable:true,
-        //         title: '请输入咨询用户名',
-        //         content: '23B03725680',
-        //         success: (res)=> {
-        //             if (res.confirm) {
-        //                 console.log(res)
-        //                 this.setData({userName:res.content})
-        //             }
-        //         }
-        //     })
-        // };
-        // this.setData({
-        //     messageList: [{
-        //         id: 1,
-        //         role: 'assistant',
-        //         content: `${this.data.userName} 您好，我是 chatBGI 机器人，请问您想了解什么？`
-        //     }]
-        // }, )
+        var username = wx.getStorageSync('username') || '';
+            // wx.showModal({
+            //     editable:true,
+            //     title: '请输入咨询用户名',
+            //     content: '23B03725680',
+            //     success: (res)=> {
+            //         if (res.confirm) {
+            //             console.log(res)
+            //             
+            //         }
+            //     }
+            // })
+        if (!username) {
+            this.setData({userName: "23B03725680"})
+            wx.showToast({
+                title: '已使用默认用户',
+                icon: 'success',
+                duration: 1000
+              });
+        };
+        // wx.setNavigationBarTitle({
+        //   title: `🚑用药咨询：${this.data.userName} `,
+        // })
+        this.setData({
+            messageList: [{
+                id: 1,
+                role: 'assistant',
+                content: `${this.data.userName} 您好，我是 chatBGI 机器人，请问您想咨询什么用药信息？`
+            }]
+        }, )
 
     },
     clearMessage() {
@@ -49,6 +58,25 @@ Page({
             messageList: [],
         })
     },
+    handle_clearMessage() {
+        wx.showModal({
+            title: '提示',
+            content: '是否清空消息？',
+            confirmText: "清空",
+            confirmColor: "red",
+            success: (res)=> {
+              if (res.confirm) {
+                wx.showToast({
+                    title: '已清空消息',
+                    icon: 'none',
+                    duration: 800
+                  });
+                this.clearMessage()
+              }
+            }
+          })
+    },
+
     async handleSendClick() {
         const userInput = this.data.inputValue.trim()
         if (userInput.trim() === '') return
@@ -168,4 +196,13 @@ Page({
             this.show_text(key + 1, content_key, finished_key, value);
         }, 50);
     },
+
+    textFocus(e){
+        const height = e.detail.height;
+        this.setData({ inputBoxPos: `calc(${height}px + 7rpx)` });
+      },
+    textBlur(){
+        this.setData({ inputBoxPos: `10px` });
+      }
+
 })
